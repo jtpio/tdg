@@ -5,10 +5,11 @@
 
     function map() {
         this.width = 32;
-        this.height = 32;
+        this.height = 24;
         this.blockSize = 16;
         this.grid = [];
         this.path = []; // left to right
+        this.turrets = {};
         this.create();
         this.generatePath();
     }
@@ -19,6 +20,15 @@
                 this.grid.push([]);
                 for (var j = 0; j < this.height; j++) {
                     this.grid[i].push(new cell(i,j));
+                }
+            }
+        },
+
+        "feedTurrets": function(turrets, playerNr) {
+            this.turrets[playerNr] = [];
+            for (var i = 0; i < turrets.length; i++) {
+                if (turrets[i].x && turrets[i].y && checkBounds(turrets[i])) {
+                    this.turrets[playerNr].push(turrets[i]);
                 }
             }
         },
@@ -59,7 +69,7 @@
                     }
                 }
             }
-            console.log("path generated: " + JSON.stringify(this.path));
+            console.log("path generated");
         },
 
         "checkBounds": function(pos) {

@@ -10,6 +10,21 @@
     }
 
     game.prototype = {
+        "feedTurrets": function(turrets, playerNr) {
+            if (Object.prototype.toString.call(turret) !== '[object Array]') {
+                turrets = [];
+            }
+            this.map.feedTurrets(turrets, playerNr);
+        },
+
+        "getMap": function() {
+            var res = {
+                'width':  this.map.width,
+                'height': this.map.height,
+                'path': this.map.path
+            };
+            return res;
+        }
     };
 
     module.exports = game;

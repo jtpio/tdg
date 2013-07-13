@@ -12,11 +12,14 @@ var games = {};
 var gameCounter = 0;
 
 io.sockets.on('connection', function (client) {
-    client.emit("hello", { hello: 'world' });
+    client.emit('hello', { hello: 'world' });
 
-    client.on("message", function (msg) {
-        console.log("Got " + JSON.stringify(msg) + " from client");
+    client.on('turrets', function (msg) {
+        var g = client.gameID;
+        var playerNr = (g.player1 == client)?1:2;
+        g.feedTurrets(msg, playerNr);
     });
+
     client.on('disconnect', function () {
     });
 
@@ -31,6 +34,9 @@ io.sockets.on('connection', function (client) {
         p2.gameID = newGame.id;
         games[newGame.id] = newGame;
         gameCounter++;
+
+        p1.emit("map", {"playerNumber": 1, "map": newGame.getMap()});
+        p2.emit("map", {"playerNumber": 2, "map": newGame.getMap()});
     }
 
     console.log("queue size: " + players.length);

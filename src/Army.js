@@ -4,7 +4,7 @@
 	}
 	Army.prototype = {
 		"UNITS":10,
-		"simulate": function(){            
+		"move": function(){            
 		}
 	}
 	module.exports = Army;

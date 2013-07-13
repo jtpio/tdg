@@ -1,17 +1,18 @@
-(function(){
-	function Soldier(x, y, player_no){
-		this.x = x;
-		this.y = y;
-		this.regiment = player_no;
-	}
-	Soldier.prototype = {
-		"SPEED":10,
-		"move": function( path, direction){
+(function() {
 
-		},
-		"status": function(){
-           return "win"
-		}
+	function Soldier(pos){
+		this.pos = pos;
+		this.hp = global.Soldier.MAX_HP;
 	}
+
+	Soldier.prototype = {
+		"hurt": function() {
+			this.hp -= global.Soldier.DAMAGE;
+			this.hp = Math.max(0, this.hp);
+			return this.hp === 0;
+		}
+	};
+
 	module.exports = Soldier;
+
 }());

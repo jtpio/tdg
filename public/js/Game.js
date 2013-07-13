@@ -8,6 +8,7 @@ define(function() {
         this.map = {};
         this.turrets = [];
         this.load();
+        this.last = Date.now();
         this.tick();
     };
 
@@ -34,6 +35,75 @@ define(function() {
         };
 
         self.stage.addChild(self.turretsButton);
+    };
+
+    Game.prototype.setOtherTurrets = function(otherTurrets) {
+        var turretNr = this.playerNr ^ 3;
+        for (var i = 0; i < otherTurrets.length; i++) {
+            var sprite = new PIXI.Sprite.fromImage('turret'+ turretNr + '.png');
+            sprite.position.x = otherTurrets[i].x * this.map.map.blockSize;
+            sprite.position.y = otherTurrets[i].y * this.map.map.blockSize;
+            this.stage.addChild(sprite);
+        }
+    };
+
+    Game.prototype.setStatus = function(status) {
+        this.statusPos = 0;
+        this.status = status;
+
+        this.soldiers = {};
+        this.populateSoldiers(1);
+        this.populateSoldiers(2);
+    };
+
+    Game.prototype.populateSoldiers = function(playerNr) {
+        var self = this;
+        self.soldiers[playerNr] = [];
+        for (var s = 0; s < self.map.map.maxSoldiers; s++) {
+            var soldierSprite = new PIXI.Sprite.fromImage('unit.png');
+            //var pos = (playerNr == 1)?self.map.path[0]:self.map.path[self.map.path.length-1];
+            var pos = {x:0, y:0};
+            soldierSprite.position.x = pos.x * self.map.map.blockSize;
+            soldierSprite.position.y = pos.y * self.map.map.blockSize;
+            soldierSprite.pos = -s;
+            self.soldiers[playerNr].push(soldierSprite);
+            self.stage.addChild(soldierSprite);
+        }
+    };
+
+    Game.prototype.updateSoldiers = function(playerNr, status, offset) {
+        var dead = status.dead;
+        var attacked = status.attacked;
+        var toDie = [];
+        for (var i = 0; i < this.soldiers[playerNr].length; i++) {
+            var sprite = this.soldiers[playerNr][i];
+            if (dead.indexOf(sprite.pos) != -1) {
+                toDie.push(sprite);
+            } else {
+                var sPos = this.map.map.path[sprite.pos + offset];
+                if (sPos) {
+                    sprite.position.x = sPos.x * this.map.map.blockSize;
+                    sprite.position.y = sPos.y * this.map.map.blockSize;
+                }
+            }
+        }
+
+        for (var i = 0; i < toDie.length; i++) {
+            this.soldiers[playerNr].splice(this.soldiers[playerNr].indexOf(toDie[i]), 1);
+            this.stage.removeChild(toDie[i]);
+        }
+    };
+
+    Game.prototype.simulate = function() {
+        var status1 = this.status.status1[this.statusPos];
+        var status2 = this.status.status2[this.statusPos];
+        if (!status1) return;
+        var offset = status1.offset;
+
+        this.updateSoldiers(1, status1, offset);
+        this.updateSoldiers(2, status2, offset);
+
+        this.statusPos++;
     };
 
     Game.prototype.setMap = function(mapObj) {
@@ -71,6 +141,12 @@ define(function() {
     };
 
     Game.prototype.tick = function() {
+        var now = Date.now();
+        var dt = now - this.last;
+        if (dt >= 500 && this.status) {
+            this.simulate();
+            this.last = now;
+        }
         this.renderer.render(this.stage);
         requestAnimFrame(this.tick.bind(this));
     };

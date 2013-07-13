@@ -2,6 +2,7 @@
 
     var Utils = new require('./Utils');
     var Cell = new require('./Cell');
+    var Soldier = new require('./Soldier');
 
     function Map() {
         this.width = global.Map.WIDTH;
@@ -31,6 +32,75 @@
                     this.turrets[playerNr].push(turrets[i]);
                 }
             }
+        },
+
+        "simulate": function(callback) {
+            var status1 = this.simulatePlayer(1, this.path);
+            var status2 = this.simulatePlayer(2, this.path.reverse());
+            var res = {"status1": status1, "status2": status2};
+            callback(res);
+        },
+
+        "simulatePlayer": function(playerNr, path) {
+            var offset = 0;
+            var turrets1 = this.turrets[playerNr];
+            var r = global.Turret.RADIUS;
+            var nbSoldiers = global.Soldier.MAX_NB;
+            var soldiers = [];
+            for (var s = 0; s < nbSoldiers; s++) {
+                soldiers.push(new Soldier(-s));
+            }
+
+            var status = [];
+
+            var steps = this.path.length + nbSoldiers;
+            for (var i = 0; i < steps && soldiers.length > 0; i++) {
+                var attacked = [];
+                var dead = [];
+                for (var t = 0; t < turrets1.length; t++) {
+                    var turret = turrets1[t];
+                    var dists = [];
+                    for (var s = 0; s < soldiers.length; s++) {
+                        var sPos = this.path[soldiers[s].pos + offset];
+                        if (sPos) {
+                            var dist = (turret.x - sPos.x) *  (turret.x - sPos.x) + (turret.y - sPos.y) * (turret.y - sPos.y);
+                            dists.push(dist);
+                        }
+                    }
+                    var min = 100000;
+                    var best = -1;
+                    for (var d = 0; d < dists.length; d++) {
+                        if (dists[d] < min) {
+                            min = dists[d];
+                            best = d;
+                        }
+                    }
+
+                    if (min <= r) {
+                        var killed = soldiers[best].hurt();
+                        attacked.push(soldiers[best].pos);
+                        if (killed) {
+                            dead.push(soldiers[best].pos);
+                            soldiers.splice(best, 1);
+                        }
+                        if (soldiers.length === 0) {
+                            break;
+                        }
+                    }
+                }
+                status.push({
+                    'dead': dead,
+                    'attacked': attacked,
+                    'offset': offset
+                });
+                offset++;
+            }
+
+            console.log("Results for player " + playerNr + ":");
+            console.log(soldiers);
+            console.log(status);
+
+            return status;
         },
 
         "generatePath": function() {

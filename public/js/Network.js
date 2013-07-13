@@ -22,11 +22,12 @@ define(function() {
                 game.setMap(map);
             });
 
-            this.socket.on('move', function(move){
-                console.log('Move received' + JSON.stringify(move));
+            this.socket.on('turrets', function(otherTurrets) {
+                game.setOtherTurrets(otherTurrets);
             });
 
             this.socket.on('status', function(status){
+                game.setStatus(status);
             });
 
             this.socket.on('disconnect', function() {

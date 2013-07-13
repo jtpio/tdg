@@ -18,8 +18,8 @@ io.sockets.on('connection', function(client) {
     client.on('turrets', function(msg) {
         var g = games[client.gameID];
         var playerNr = (g.player1 == client)?1:2;
-        g.feedTurrets(msg, playerNr);
         console.log("got turrets from player " + playerNr + ": " + JSON.stringify(msg));
+        g.feedTurrets(msg, playerNr);
     });
 
     client.on('join', function(msg) {

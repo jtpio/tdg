@@ -7,6 +7,7 @@
         this.player2 = player2;
         this.id = id;
         this.map = new Map();
+        this.turret_ready = [false, false];
     }
 
     Game.prototype = {
@@ -15,6 +16,10 @@
                 turrets = [];
             }
             this.map.feedTurrets(turrets, playerNr);
+            this.turret_ready[playerNr-1] = true;
+            if(this.turret_ready[0] && this.turret_ready[1]){
+                this.simulate();
+            }
         },
         "getMap": function() {
             var res = {
@@ -26,6 +31,9 @@
                 'path': this.map.path
             };
             return res;
+        },
+        "simulate":function(){
+            
         }
     };
 

@@ -26,10 +26,11 @@ io.sockets.on('connection', function (client) {
         var p1 = players.shift();
         var p2 = players.shift();
         var newGame = new game(p1, p2, gameCounter);
-        gameCounter++;
         console.log("new game created");
         p1.gameID = newGame.id;
         p2.gameID = newGame.id;
+        games[newGame.id] = newGame;
+        gameCounter++;
     }
 
     console.log("queue size: " + players.length);

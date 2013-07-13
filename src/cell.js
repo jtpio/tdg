@@ -3,7 +3,7 @@
     function cell(x, y, type) {
         this.x = x;
         this.y = y;
-        this.type = (type)?type:"free";
+        this.type = (type)?type:"empty";
     }
 
     cell.prototype = {

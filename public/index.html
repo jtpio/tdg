@@ -22,7 +22,7 @@
             console.log('disconnected');
         });
 
-        socket.json.send(msg);
+        socket.emit("join", {});
     });
 </script>
 </body>

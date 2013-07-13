@@ -16,12 +16,15 @@ io.sockets.on('connection', function(client) {
 
     client.on('turrets', function(msg) {
         var g = client.gameID;
-        var playerNr = (g.player1 == client)?1:2;
+        var playerNr = (g.player1.client == client)?1:2;
         g.feedTurrets(msg, playerNr);
+        g.simulateWhenReady();
     });
 
     client.on('join', function(msg) {
-        players.push(client);
+        var player = new Player();
+        player.client = client;
+        players.push(player);
         console.log("queue size: " + players.length);
 
         if (players.length > 0 && players.length % 2 === 0) {

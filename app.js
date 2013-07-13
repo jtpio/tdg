@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
-var game = require(__dirname + '/src/game');
+var Game = require(__dirname + '/src/Game');
 
 server.listen(4444);
 app.use(express.static(__dirname + '/public'));
@@ -27,7 +27,7 @@ io.sockets.on('connection', function(client) {
         if (players.length > 0 && players.length % 2 === 0) {
             var p1 = players.shift();
             var p2 = players.shift();
-            var newGame = new game(p1, p2, gameCounter);
+            var newGame = new Game(p1, p2, gameCounter);
             console.log("new game created");
             p1.gameID = newGame.id;
             p2.gameID = newGame.id;

@@ -28,8 +28,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="15.839192"
-     inkscape:cx="11.084584"
-     inkscape:cy="8.0974734"
+     inkscape:cx="11.152695"
+     inkscape:cy="7.7275691"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -50,7 +50,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -60,11 +60,45 @@
      id="layer1"
      transform="translate(0,-1028.3622)">
     <rect
-       style="color:#000000;fill:#e3dbdb;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.48979592;stroke-opacity:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       style="color:#000000;fill:#e3dbdb;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.48979592;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        id="rect3023"
-       width="23.510204"
-       height="23.510204"
-       x="0.24489796"
-       y="1028.6071" />
+       width="24"
+       height="24"
+       x="0"
+       y="1028.3623"
+       inkscape:export-filename="/home/jeremy/IF/DEV/experiments/tdg/public/img/path.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.5;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2983"
+       width="1.8309015"
+       height="3.5355339"
+       x="4.6088209"
+       y="1034.7477" />
+    <rect
+       y="944.65784"
+       x="595.88153"
+       height="2.4849"
+       width="1.4251826"
+       id="rect2985"
+       style="color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.5;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       transform="matrix(0.91006648,0.41446231,-0.55713999,0.83041859,0,0)" />
+    <rect
+       transform="matrix(0.54560508,-0.83804242,0.56227406,0.82695095,0,0)"
+       style="color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.5;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2987"
+       width="1.7057631"
+       height="2.8375432"
+       x="-632.29242"
+       y="624.38251" />
+    <rect
+       y="-603.30353"
+       x="650.72119"
+       height="2.8375432"
+       width="1.7057631"
+       id="rect2989"
+       style="color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.5;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       transform="matrix(0.54560508,0.83804242,0.56227406,-0.82695095,0,0)" />
   </g>
 </svg>

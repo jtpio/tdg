@@ -1,14 +1,14 @@
 (function() {
 
-    function cell(x, y, type) {
+    function Cell(x, y, type) {
         this.x = x;
         this.y = y;
         this.type = (type)?type:"empty";
     }
 
-    cell.prototype = {
+    Cell.prototype = {
     };
 
-    module.exports = cell;
+    module.exports = Cell;
 
 }());

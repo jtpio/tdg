@@ -1,9 +1,9 @@
 (function() {
 
-    var utils = new require('./utils');
-    var cell = new require('./cell');
+    var Utils = new require('./Utils');
+    var Cell = new require('./Cell');
 
-    function map() {
+    function Map() {
         this.width = 32;
         this.height = 24;
         this.blockSize = 24;
@@ -14,12 +14,12 @@
         this.generatePath();
     }
 
-    map.prototype = {
+    Map.prototype = {
         "create": function() {
             for (var i = 0; i < this.width; i++) {
                 this.grid.push([]);
                 for (var j = 0; j < this.height; j++) {
-                    this.grid[i].push(new cell(i,j));
+                    this.grid[i].push(new Cell(i,j));
                 }
             }
         },
@@ -35,7 +35,7 @@
 
         "generatePath": function() {
             console.log("generating path");
-            var startY = utils.random(0, this.width-1);
+            var startY = Utils.random(0, this.width-1);
             var pos = {
                 x: 0,
                 y: startY
@@ -51,7 +51,7 @@
                 var valid = false;
                 while (!valid) {
                     var trash = [];
-                    var move = utils.random(0, this.moves.length-1);
+                    var move = Utils.random(0, this.moves.length-1);
                     var nextMove = this.moves[move];
                     var newPos = {
                         x: pos.x + nextMove.x,
@@ -78,6 +78,6 @@
         }
     };
 
-    module.exports = map;
+    module.exports = Map;
 
 }());

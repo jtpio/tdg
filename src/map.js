@@ -6,7 +6,7 @@
     function map() {
         this.width = 32;
         this.height = 24;
-        this.blockSize = 16;
+        this.blockSize = 24;
         this.grid = [];
         this.path = []; // left to right
         this.turrets = {};
@@ -57,7 +57,8 @@
                         x: pos.x + nextMove.x,
                         y: pos.y + nextMove.y
                     };
-                    if (this.checkBounds(newPos) && this.grid[newPos.x][newPos.y] != "path") {
+                    var prevPrev = this.path[this.path.length-3] || {x: 0, y: startY};
+                    if (this.checkBounds(newPos) && this.grid[newPos.x][newPos.y].type != "path" && prevPrev.y != newPos.y) {
                         valid = true;
                         this.path.push(newPos);
                         pos = newPos;

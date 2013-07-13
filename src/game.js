@@ -21,6 +21,7 @@
             var res = {
                 'width':  this.map.width,
                 'height': this.map.height,
+                'blockSize': this.map.blockSize,
                 'path': this.map.path
             };
             return res;

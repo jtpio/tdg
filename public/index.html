@@ -1,11 +1,10 @@
 <html>
 <head>
-    <title>Boilerplate Socket.io</title>
+    <title>Tower defense</title>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 </head>
 <body>
-    <img src="img/test.png"/>
 <script>
     $(document).ready(function() {
         var host = "http://"+window.location.hostname;
@@ -23,7 +22,6 @@
             console.log('disconnected');
         });
 
-        var msg = {'type': 'fibo', 'n': 200};
         socket.json.send(msg);
     });
 </script>

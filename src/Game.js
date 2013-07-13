@@ -22,6 +22,7 @@
                 'width':  this.map.width,
                 'height': this.map.height,
                 'blockSize': this.map.blockSize,
+                'grid': this.map.grid,
                 'path': this.map.path
             };
             return res;

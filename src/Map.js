@@ -45,29 +45,37 @@
             var up = {x:0, y:-1};
             var down = {x: 0, y:1};
             var right = {x: 1, y: 0};
-            this.moves = [up, down, right];
-            this.lastMove = "";
+            var moves = [up, down, right];
+            var trash = [];
             while (pos.x < this.width - 1) {
                 var valid = false;
+                trash = [];
                 while (!valid) {
-                    var trash = [];
-                    var move = Utils.random(0, this.moves.length-1);
-                    var nextMove = this.moves[move];
+                    console.log("pos " + JSON.stringify(pos));
+                    var move = Utils.random(0, moves.length-1);
+                    console.log("move id " + move);
+                    var nextMove = moves[move];
+                    if (!nextMove) {
+                        nextMove = right;
+                    }
                     var newPos = {
                         x: pos.x + nextMove.x,
                         y: pos.y + nextMove.y
                     };
-                    var prevPrev = this.path[this.path.length-3] || {x: 0, y: startY};
+                    var prevPrev = this.path[this.path.length-3] || {x: 0, y: 1000};
                     if (this.checkBounds(newPos) && this.grid[newPos.x][newPos.y].type != "path" && prevPrev.y != newPos.y) {
                         valid = true;
                         this.path.push(newPos);
                         pos = newPos;
                         this.grid[pos.x][pos.y].type = "path";
-                        while (trash.length > 0) this.moves.push(trash.pop());
+                        while (trash.length > 0) moves.push(trash.pop());
                     } else {
                         trash.push(nextMove);
-                        this.moves.slice(move, 1);
+                        moves.splice(move, 1);
                     }
+
+                    console.log("trash " + JSON.stringify(trash));
+                    console.log("moves " + JSON.stringify(moves));
                 }
             }
             console.log("path generated");

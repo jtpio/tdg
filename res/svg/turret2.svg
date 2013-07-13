@@ -19,7 +19,21 @@
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
-     id="defs4" />
+     id="defs4">
+    <filter
+       color-interpolation-filters="sRGB"
+       inkscape:collect="always"
+       id="filter3828"
+       x="-1.1966667"
+       width="3.3933334"
+       y="-1.2033519"
+       height="3.4067039">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="5.6663244"
+         id="feGaussianBlur3830" />
+    </filter>
+  </defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -28,7 +42,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="15.839192"
-     inkscape:cx="11.084584"
+     inkscape:cx="3.2243346"
      inkscape:cy="8.0974734"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -50,7 +64,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -59,6 +73,16 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-1028.3622)">
+    <path
+       transform="translate(-1.0688486,1026.8741)"
+       sodipodi:type="arc"
+       style="color:#000000;fill:#000000;fill-opacity:0.49295774;fill-rule:nonzero;stroke:none;stroke-width:0.5;marker:none;visibility:visible;display:inline;overflow:visible;filter:url(#filter3828);enable-background:accumulate"
+       id="path3818"
+       sodipodi:cx="13.068849"
+       sodipodi:cy="13.4881"
+       sodipodi:rx="5.6821079"
+       sodipodi:ry="5.6505408"
+       d="m 18.750957,13.4881 a 5.6821079,5.6505408 0 1 1 -11.3642163,0 5.6821079,5.6505408 0 1 1 11.3642163,0 z" />
     <path
        sodipodi:type="star"
        style="color:#000000;fill:#d40000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"

@@ -3,6 +3,7 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 var Game = require(__dirname + '/src/Game');
+var Settings = require(__dirname+ '/src/Settings');
 
 server.listen(4444);
 app.use(express.static(__dirname + '/public'));
@@ -15,16 +16,14 @@ io.sockets.on('connection', function(client) {
     client.emit('hello', { hello: 'world' });
 
     client.on('turrets', function(msg) {
-        var g = client.gameID;
-        var playerNr = (g.player1.client == client)?1:2;
+        var g = games[client.gameID];
+        var playerNr = (g.player1 == client)?1:2;
         g.feedTurrets(msg, playerNr);
-        g.simulateWhenReady();
+        console.log("got turrets from player " + playerNr + ": " + JSON.stringify(msg));
     });
 
     client.on('join', function(msg) {
-        var player = new Player();
-        player.client = client;
-        players.push(player);
+        players.push(client);
         console.log("queue size: " + players.length);
 
         if (players.length > 0 && players.length % 2 === 0) {

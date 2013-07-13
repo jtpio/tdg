@@ -34,6 +34,10 @@ define(function() {
             });
 
             this.socket.emit("join", {});
+        },
+
+        "send": function(type, msg) {
+            this.socket.emit(type, msg);
         }
     };
 

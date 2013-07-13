@@ -1,14 +1,13 @@
 (function(){
-	function turret(x, y){
+	function Turret(x, y){
 		this.x = x;
 		this.y = y;
 	}
-	turret.prototype = {
-		"HITRANGE":60,
-		"fire": function(enemy_soldiers){
+	Turret.prototype = {
+		"fire": function(enemySoldiers){
 			var map = game.map;
-            
 		}
-	}
-	module.exports = turret;
+	};
+
+	module.exports = Turret;
 }());

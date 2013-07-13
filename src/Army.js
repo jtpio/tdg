@@ -1,11 +1,19 @@
 (function(){
+
 	function Army(){
 		this.soldiers = [];
 	}
+
 	Army.prototype = {
-		"UNITS":10,
-		"move": function(){            
-		}
-	}
+		"move": function() {
+
+		},
+
+        "buildArmy": function() {
+
+        }
+	};
+
 	module.exports = Army;
+
 }());

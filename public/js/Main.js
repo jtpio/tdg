@@ -1,7 +1,7 @@
 define(['Network', 'Game'], function(Network, Game) {
 
     var WIDTH = 768;
-    var HEIGHT = 576;
+    var HEIGHT = 650;
 
     var Main = function() {
         this.load();
@@ -21,6 +21,7 @@ define(['Network', 'Game'], function(Network, Game) {
             self.game = new Game(renderer, self);
             var host = "http://"+window.location.hostname;
             self.net = new Network(host, self.game);
+            self.game.setNet(self.net);
         };
 
         loader.load();

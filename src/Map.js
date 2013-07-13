@@ -4,9 +4,9 @@
     var Cell = new require('./Cell');
 
     function Map() {
-        this.width = 32;
-        this.height = 24;
-        this.blockSize = 24;
+        this.width = global.Map.WIDTH;
+        this.height = global.Map.HEIGHT;
+        this.blockSize = global.Map.BLOCK_SIZE;
         this.grid = [];
         this.path = []; // left to right
         this.turrets = {};
@@ -27,7 +27,7 @@
         "feedTurrets": function(turrets, playerNr) {
             this.turrets[playerNr] = [];
             for (var i = 0; i < turrets.length; i++) {
-                if (turrets[i].x && turrets[i].y && checkBounds(turrets[i])) {
+                if (turrets[i].x && turrets[i].y && this.checkBounds(turrets[i])) {
                     this.turrets[playerNr].push(turrets[i]);
                 }
             }
@@ -63,7 +63,7 @@
                         y: pos.y + nextMove.y
                     };
                     var prevPrev = this.path[this.path.length-3] || {x: 0, y: 1000};
-                    if (this.checkBounds(newPos) && this.grid[newPos.x][newPos.y].type != "path" && prevPrev.y != newPos.y) {
+                    if (this.checkBounds(newPos) && this.grid[newPos.x][newPos.y].type != "path" && (prevPrev.y != newPos.y || Math.abs(prevPrev.x-newPos.x) >= 4)) {
                         valid = true;
                         this.path.push(newPos);
                         pos = newPos;

@@ -71,7 +71,7 @@ define(function() {
         }
     };
 
-    Game.prototype.updateSoldiers = function(playerNr, status, offset) {
+    Game.prototype.updateSoldiers = function(playerNr, status, offset, t) {
         var dead = status.dead;
         var attacked = status.attacked;
         var toDie = [];
@@ -81,9 +81,11 @@ define(function() {
                 toDie.push(sprite);
             } else {
                 var sPos = this.map.map.path[sprite.pos + offset];
-                if (sPos) {
-                    sprite.position.x = sPos.x * this.map.map.blockSize;
-                    sprite.position.y = sPos.y * this.map.map.blockSize;
+                var sPosNext = this.map.map.path[sprite.pos + offset + 1];
+                if (sPos && sPosNext) {
+                    console.log(sPosNext);
+                    sprite.position.x = (sPos.x + (sPosNext.x - sPos.x) * (t / 300)) * this.map.map.blockSize;
+                    sprite.position.y = (sPos.y + (sPosNext.y - sPos.y) * (t / 300))  * this.map.map.blockSize;
                 }
             }
         }
@@ -94,16 +96,25 @@ define(function() {
         }
     };
 
-    Game.prototype.simulate = function() {
+    Game.prototype.simulate = function(dt) {
         var status1 = this.status.status1[this.statusPos];
         var status2 = this.status.status2[this.statusPos];
-        if (!status1) return;
-        var offset = status1.offset;
 
-        this.updateSoldiers(1, status1, offset);
-        this.updateSoldiers(2, status2, offset);
+        if (!status1 && !status2) return;
+        var status = status1 || status2;
+        var offset = status.offset;
 
-        this.statusPos++;
+        if (status1) {
+            status1.t += dt;
+            this.updateSoldiers(1, status1, offset, status1.t);
+        }
+
+        if (status2) {
+            status2.t += dt;
+            this.updateSoldiers(2, status2, offset, status2.t);
+        }
+        if (status1.t >= 300 || status2.t >= 300) this.statusPos++;
+
     };
 
     Game.prototype.setMap = function(mapObj) {
@@ -143,10 +154,10 @@ define(function() {
     Game.prototype.tick = function() {
         var now = Date.now();
         var dt = now - this.last;
-        if (dt >= 500 && this.status) {
-            this.simulate();
-            this.last = now;
+        if (this.status) {
+            this.simulate(dt);
         }
+        this.last = now;
         this.renderer.render(this.stage);
         requestAnimFrame(this.tick.bind(this));
     };

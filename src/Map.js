@@ -115,40 +115,57 @@
             var up = {x:0, y:-1};
             var down = {x: 0, y:1};
             var right = {x: 1, y: 0};
-            var moves = [up, down, right];
-            var trash = [];
+            var moves = {
+                'up': up,
+                'down': down,
+                'right': right
+            };
+            var last = '';
             while (pos.x < this.width - 1) {
-                var valid = false;
-                trash = [];
+                console.log("pos " + JSON.stringify(pos));
+                var availableMoves = this.nextMoves(last);
+                valid = false;
                 while (!valid) {
-                    console.log("pos " + JSON.stringify(pos));
-                    var move = Utils.random(0, moves.length-1);
-                    console.log("move id " + move);
+                    var moveIndex = Utils.random(0, availableMoves.length-1);
+                    var move = availableMoves[moveIndex];
                     var nextMove = moves[move];
-                    if (!nextMove) {
-                        nextMove = right;
-                    }
                     var newPos = {
                         x: pos.x + nextMove.x,
                         y: pos.y + nextMove.y
                     };
-                    var prevPrev = this.path[this.path.length-3] || {x: 0, y: 1000};
-                    if (this.checkBounds(newPos) && this.grid[newPos.x][newPos.y].type != "path" && (prevPrev.y != newPos.y || Math.abs(prevPrev.x-newPos.x) >= 4)) {
+
+                    var prev = this.path[this.path.length-3] || {x:1000, y:1000};
+                    if (this.checkBounds(newPos) && newPos.y != prev.y) {
                         valid = true;
+                        last = move;
                         this.path.push(newPos);
                         pos = newPos;
                         this.grid[pos.x][pos.y].type = "path";
-                        while (trash.length > 0) moves.push(trash.pop());
                     } else {
-                        trash.push(nextMove);
-                        moves.splice(move, 1);
+                        availableMoves.splice(moveIndex, 1);
                     }
-
-                    console.log("trash " + JSON.stringify(trash));
-                    console.log("moves " + JSON.stringify(moves));
                 }
+
+                console.log("moves " + JSON.stringify(moves));
             }
             console.log("path generated");
+        },
+
+        "nextMoves": function(last) {
+            var res = [];
+            switch (last) {
+                case 'up':
+                    res = ['up', 'right'];
+                    break;
+                case 'down':
+                    res = ['right', 'down'];
+                    break;
+                default:
+                    res = ['up', 'down', 'right'];
+                    break;
+
+            }
+            return res;
         },
 
         "checkBounds": function(pos) {

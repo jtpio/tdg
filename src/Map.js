@@ -105,7 +105,7 @@
 
         "generatePath": function() {
             console.log("generating path");
-            var startY = Utils.random(0, this.width-1);
+            var startY = Utils.random(0, this.height-1);
             var pos = {
                 x: 0,
                 y: startY
@@ -129,13 +129,15 @@
                     var moveIndex = Utils.random(0, availableMoves.length-1);
                     var move = availableMoves[moveIndex];
                     var nextMove = moves[move];
+                    nextMove = nextMove || right;
                     var newPos = {
                         x: pos.x + nextMove.x,
                         y: pos.y + nextMove.y
                     };
 
-                    var prev = this.path[this.path.length-3] || {x:1000, y:1000};
-                    if (this.checkBounds(newPos) && newPos.y != prev.y) {
+                    var prev = this.path[this.path.length-3] || {x:0, y:startY};
+                    var test = this.checkBounds(newPos) && ((nextMove != right)?(newPos.y != prev.y):true);
+                    if (test) {
                         valid = true;
                         last = move;
                         this.path.push(newPos);

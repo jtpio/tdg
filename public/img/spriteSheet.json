@@ -8,7 +8,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
 	"sourceSize": {"w":24,"h":24}
 },
-"path.png":
+"explosition.png":
 {
 	"frame": {"x":28,"y":2,"w":24,"h":24},
 	"rotated": false,
@@ -16,9 +16,17 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
 	"sourceSize": {"w":24,"h":24}
 },
+"path.png":
+{
+	"frame": {"x":2,"y":28,"w":24,"h":24},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
+	"sourceSize": {"w":24,"h":24}
+},
 "sword_soldier.gif":
 {
-	"frame": {"x":2,"y":28,"w":16,"h":16},
+	"frame": {"x":28,"y":28,"w":16,"h":16},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
@@ -26,7 +34,7 @@
 },
 "turret1.png":
 {
-	"frame": {"x":20,"y":28,"w":24,"h":24},
+	"frame": {"x":2,"y":54,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -34,7 +42,7 @@
 },
 "turret2.png":
 {
-	"frame": {"x":2,"y":54,"w":24,"h":24},
+	"frame": {"x":28,"y":54,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -42,7 +50,7 @@
 },
 "unit.png":
 {
-	"frame": {"x":28,"y":54,"w":16,"h":16},
+	"frame": {"x":2,"y":80,"w":16,"h":16},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},

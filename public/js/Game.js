@@ -71,7 +71,7 @@ define(function() {
         }
     };
 
-    Game.prototype.updateSoldiers = function(playerNr, status, offset, t) {
+    Game.prototype.updateSoldiers = function(playerNr, status, offset) {
         var dead = status.dead;
         var attacked = status.attacked;
         var toDie = [];
@@ -81,11 +81,9 @@ define(function() {
                 toDie.push(sprite);
             } else {
                 var sPos = this.map.map.path[sprite.pos + offset];
-                var sPosNext = this.map.map.path[sprite.pos + offset + 1];
-                if (sPos && sPosNext) {
-                    console.log(sPosNext);
-                    sprite.position.x = (sPos.x + (sPosNext.x - sPos.x) * (t / 300)) * this.map.map.blockSize;
-                    sprite.position.y = (sPos.y + (sPosNext.y - sPos.y) * (t / 300))  * this.map.map.blockSize;
+                if (sPos) {
+                    sprite.position.x = sPos.x * this.map.map.blockSize;
+                    sprite.position.y = sPos.y * this.map.map.blockSize;
                 }
             }
         }
@@ -105,16 +103,13 @@ define(function() {
         var offset = status.offset;
 
         if (status1) {
-            status1.t += dt;
-            this.updateSoldiers(1, status1, offset, status1.t);
+            this.updateSoldiers(1, status1, offset);
         }
 
         if (status2) {
-            status2.t += dt;
-            this.updateSoldiers(2, status2, offset, status2.t);
+            this.updateSoldiers(2, status2, offset);
         }
-        if (status1.t >= 300 || status2.t >= 300) this.statusPos++;
-
+        this.statusPos++;
     };
 
     Game.prototype.setMap = function(mapObj) {
@@ -154,10 +149,10 @@ define(function() {
     Game.prototype.tick = function() {
         var now = Date.now();
         var dt = now - this.last;
-        if (this.status) {
+        if (dt > 200 && this.status) {
             this.simulate(dt);
+            this.last = now;
         }
-        this.last = now;
         this.renderer.render(this.stage);
         requestAnimFrame(this.tick.bind(this));
     };

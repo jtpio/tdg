@@ -43,7 +43,7 @@
 
         "simulatePlayer": function(playerNr, path) {
             var offset = 0;
-            var turrets1 = this.turrets[playerNr];
+            var turrets = this.turrets[playerNr ^ 3];
             var r = global.Turret.RADIUS;
             var nbSoldiers = global.Soldier.MAX_NB;
             var soldiers = [];
@@ -57,8 +57,8 @@
             for (var i = 0; i < steps && soldiers.length > 0; i++) {
                 var attacked = [];
                 var dead = [];
-                for (var t = 0; t < turrets1.length; t++) {
-                    var turret = turrets1[t];
+                for (var t = 0; t < turrets.length; t++) {
+                    var turret = turrets[t];
                     var dists = [];
                     for (var s = 0; s < soldiers.length; s++) {
                         var sPos = this.path[soldiers[s].pos + offset];

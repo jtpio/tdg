@@ -61,8 +61,7 @@ define(function() {
         self.soldiers[playerNr] = [];
         for (var s = 0; s < self.map.map.maxSoldiers; s++) {
             var soldierSprite = new PIXI.Sprite.fromImage('unit.png');
-            //var pos = (playerNr == 1)?self.map.path[0]:self.map.path[self.map.path.length-1];
-            var pos = {x:0, y:0};
+            var pos = (playerNr == 1)?self.map.map.path[0]:self.map.map.path[self.map.map.path.length-1];
             soldierSprite.position.x = pos.x * self.map.map.blockSize;
             soldierSprite.position.y = pos.y * self.map.map.blockSize;
             soldierSprite.pos = -s;
@@ -71,7 +70,7 @@ define(function() {
         }
     };
 
-    Game.prototype.updateSoldiers = function(playerNr, status, offset) {
+    Game.prototype.updateSoldiers = function(playerNr, status, offset, path) {
         var dead = status.dead;
         var attacked = status.attacked;
         var toDie = [];
@@ -80,7 +79,7 @@ define(function() {
             if (dead.indexOf(sprite.pos) != -1) {
                 toDie.push(sprite);
             } else {
-                var sPos = this.map.map.path[sprite.pos + offset];
+                var sPos = path[sprite.pos + offset];
                 if (sPos) {
                     sprite.position.x = sPos.x * this.map.map.blockSize;
                     sprite.position.y = sPos.y * this.map.map.blockSize;
@@ -103,11 +102,11 @@ define(function() {
         var offset = status.offset;
 
         if (status1) {
-            this.updateSoldiers(1, status1, offset);
+            this.updateSoldiers(1, status1, offset, this.map.map.path);
         }
 
         if (status2) {
-            this.updateSoldiers(2, status2, offset);
+            this.updateSoldiers(2, status2, offset, this.map.map.path.reverse());
         }
         this.statusPos++;
     };
